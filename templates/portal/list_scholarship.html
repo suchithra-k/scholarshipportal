@@ -1,0 +1,98 @@
+{% extends "portal/base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Scholarship Portal - List Scholarships{% endblock  %}
+
+{% block custom_style %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'lib/css/datatables.min.css' %}" />
+{% endblock  %}
+
+{% block content %}
+    <div class="ui container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="ui {{ message.tags }} message">
+                    <i class="close icon"></i>
+                    <div class="header">
+                        <i class="bullhorn icon"></i>
+                        {{ message | safe}}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="ui grid">
+            <div class="four column row">
+                <div class="left floated column"> 
+                    <h3 class="ui header">List of Schloarships</h3>
+                </div>
+                <div class="right floated right aligned column">
+                    <div class="ui teal vertical animated button" tabindex="0" id="filterButton">
+                        <div class="visible content"><i class="filter icon"></i></div>
+                        <div class="hidden content">
+                            Filter
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui teal raised segment" id="filterContent">
+            <div class="ui forms">
+                <form method="post" class="ui form">
+                    {% csrf_token %}
+                    <div class="four fields">
+                        <div class="field">
+                            <label>{{ form.marks.label_tag }}</label>
+                            {{ form.marks }}
+                        </div>
+                        <div class="field">
+                            <label>{{ form.year.label_tag }}</label>
+                            {{ form.year }}
+                        </div>
+                        <div class="field">
+                            <label>{{ form.caste.label_tag }}</label>
+                            {{ form.caste }}
+                        </div>
+                        <div class="field">
+                            <label>&nbsp;</label>
+                            <button class="ui teal submit button">
+                                <i class="filter icon"></i> Filter
+                            </button>
+                            <a class="ui teal submit button" href="{% url 'list_schloarships'%}?clear">
+                                <i class="times icon"></i> Clear
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <table class="ui celled table" id="scholarship">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Expiry Date</th>
+                    <th>Url</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for schloarship in schloarships %}
+                    <tr>
+                        <td>{{ schloarship.title }} </td>
+                        <td>{{ schloarship.expiry_date }}</td>
+                        <td>
+                            <a href="{{ schloarship.url }}" target="blank">
+                                <i class="external alternate icon"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock  %}
+
+{% block custom_script %}
+<script src="{% static 'lib/js/datatables.min.js' %}"></script>
+<script src="{% static 'src/js/list_scholarship.js' %}"></script>
+{% endblock  %}

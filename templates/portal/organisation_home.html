@@ -1,0 +1,89 @@
+{% extends "portal/base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Scholarship Portal - List Scholarships{% endblock  %}
+
+{% block custom_style %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'lib/css/datatables.min.css' %}" />
+{% endblock  %}
+
+{% block content %}
+    <div class="ui container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="ui {{ message.tags }} message">
+                    <p><i class="check circle icon"></i>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <h3 class="ui header">List of Schloarships Posted</h3>
+        <a class="ui right floated teal button" href="{% url 'new_schloarship' %}">
+           <i class="ui plus icon"></i> Add new Scholarship
+        </a>
+       <br/><br/><br/>
+        <table class="ui celled table" id="scholarship">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Expiry</th>
+                    <th>Minimum Marks</th>
+                    <th>Years</th>
+                    <th>Castes</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for scholarship in scholarships %}
+                <tr>
+                    <td>
+                        {{ scholarship.scholarship.id }}
+                    </td>
+                    <td>
+                        <a href="{{ scholarship.scholarship.url }}" target="blank">
+                            {{ scholarship.scholarship.title }}
+                        </a>
+                    </td>
+                    <td>{{ scholarship.scholarship.expiry_date }}</td>
+                    <td>{{ scholarship.scholarship.scholarshipeligibility.min_marks }}</td>
+                    <td>
+                        <div class="ui horizontal list">
+                            {% for yr in scholarship.scholarship.scholarshipeligibility.year %}
+                                <div class="item">{{ yr }}</div>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ui horizontal list">
+                        {% for cas in scholarship.scholarship.scholarshipeligibility.caste %}
+                        <div class="item">{{ cas }}</div>
+                        {% endfor %}
+                        </div>
+                    </td>
+                    <td>
+                        
+                        <a href="{% url 'new_schloarship' %}?id={{ scholarship.scholarship.id }}" title="edit">
+                            <i class="blue edit icon"></i>
+                        </a>
+                        &nbsp;&nbsp;
+                        <a href="{% url 'delete_schloarship' scholarship.scholarship.id %}" title="delete">
+                            <i class="red trash icon"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block custom_script %}
+<script src="{% static 'lib/js/datatables.min.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        $("#scholarship").DataTable();
+    });
+</script>
+{% endblock  %}

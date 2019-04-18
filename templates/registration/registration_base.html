@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Scholarship Portal{% endblock  %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'lib/css/semantic.min.css'%}" />
+</head>
+
+<body>
+    <div class="ui menu">
+        <a href="{% url 'login' %}" class="header item">
+            <h3><i class="big graduation cap icon"></i> SCHOLARSHIP PORTAL</h3>
+        </a>
+    </div>
+    <br />
+
+    {% block content %}
+    {% endblock  %}
+    <br />
+    <div class="ui vertical center aligned footer segment">
+        <label style="font-weight: normal;">
+            Copyrights &copy; Scholarship Portal {% now "Y" %}
+        </label>
+    </div>
+    {% block additional_content %}
+    {% endblock  %}
+
+    <script src="{% static 'lib/js/jquery-3.1.1.min.js'%}"></script>
+    <script src="{% static 'lib/js/semantic.min.js'%}"></script>
+
+    {% block custom_script %}
+    {% endblock  %}
+</body>
+
+</html>

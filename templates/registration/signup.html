@@ -1,0 +1,35 @@
+{% extends "registration/registration_base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Scholarship Portal - Register Student {% endblock  %}
+
+{% block content %}
+<div class="ui four column centered grid">
+    <div class="column"></div>
+    <div class="two column row">
+    <div class="column">
+        <div class="ui raised segments">
+            <div class="ui segment">
+                <h3 class="ui header">
+                    <i class="sign-in icon"></i>
+                    {{ user_role | capfirst }} SignUp
+                </h3>
+            </div>
+            <div class="ui segment">
+                <form method="post" class="ui large form">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button class="ui fluid teal large submit button" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="column"></div>
+</div>
+{% endblock  %}
+
+{% block custom_script %}
+{% endblock %}

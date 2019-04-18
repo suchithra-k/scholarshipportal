@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Scholarship Portal{% endblock  %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'lib/css/semantic.min.css'%}" />
+    {% block custom_style %}
+    {% endblock  %}
+</head>
+
+<body>
+    <div class="ui menu" style="font-size: medium;">
+        <a href="/" class="header item">
+            <h3><i class="big graduation cap icon"></i> SCHOLARSHIP PORTAL</h3>
+        </a>
+        <div class="right menu">
+            <div class="ui dropdown item">
+                <i class="user icon"></i>{{ request.user.username }} <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="{% if request.user.profile.role.role_id == 2 %}
+                    {% url 'edit_organisation' %} {% else %} {% url 'profile_update' %} {% endif %}">
+                        <i class="edit icon"></i>Edit
+                    </a>
+                    <a class="item" href="{% url 'logout' %}">
+                        <i class="sign out alternate icon"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    {% block content %}
+    {% endblock  %}
+    <br />
+    <div class="ui vertical center aligned footer segment">
+        <label style="font-weight: normal;">
+            Copyrights &copy; Scholarship Portal {% now "Y" %}
+        </label>
+    </div>
+    {% block additional_content %}
+    {% endblock  %}
+
+    <script src="{% static 'lib/js/jquery-3.1.1.min.js'%}"></script>
+    <script src="{% static 'lib/js/semantic.min.js'%}"></script>
+
+    {% block custom_script %}
+    {% endblock  %}
+    <script>
+        $('.ui.dropdown').dropdown();
+    </script>
+</body>
+
+</html>

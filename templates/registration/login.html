@@ -1,0 +1,65 @@
+{% extends "registration/registration_base.html" %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}Scholarship Portal - Login{% endblock  %}
+
+{% block content %}
+<div class="ui three column centered grid">
+    <div class="column"></div>
+    <div class="column">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="ui {{ message.tags }} message">
+                    <p>{{ message }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="ui raised segments">
+            <div class="ui segment">
+                <h3 class="ui header">
+                    <i class="sign-in icon"></i>
+                    Login to your account
+                </h3>
+            </div>
+            <div class="ui segment">
+                <form method="post" class="ui large form">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <button class="ui fluid teal large submit button" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+        <div class="ui center aligned raised segment">
+            <label style="font-weight: bold;font-size: medium;">
+                New User? &nbsp; <a href="" id="signup">Sign Up</a>
+            </label>
+        </div>
+    </div>
+    <div class="column"></div>
+</div>
+{% endblock  %}
+
+{% block additional_content %}
+<div class="ui page dimmer">
+    <div class="content">
+        <h1> You are a </h1>
+        <br/>
+        <br/>
+        <div class="ui huge buttons">
+            <a class="ui teal button" href="{% url 'register' %}">
+                <i class="id badge icon"></i> Student
+            </a>
+            <div class="or"></div>
+            <a class="ui teal button" href="{% url 'register' %}?user_role=organisation">
+                <i class="users icon"></i> Organisation
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock  %}
+
+{% block custom_script %}
+<script src="{% static 'src/js/login.js'%}"></script>
+{% endblock  %}
