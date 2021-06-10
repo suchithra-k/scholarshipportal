@@ -9,7 +9,7 @@ cffi==1.12.2
 chardet==3.0.4
 colorama==0.4.1
 crispy-forms-semantic-ui==0.2.0
-Django==2.1.7
+Django==2.2.24
 django-celery-beat==1.4.0
 django-crispy-forms==1.7.2
 django-timezone-field==3.0
