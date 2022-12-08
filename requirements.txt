@@ -4,7 +4,7 @@ autopep8==1.4.3
 beautifulsoup4==4.7.1
 billiard==3.5.0.5
 celery==4.2.1
-certifi==2018.11.29
+certifi==2022.12.7
 cffi==1.12.2
 chardet==3.0.4
 colorama==0.4.1
